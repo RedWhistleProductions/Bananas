@@ -1,0 +1,87 @@
+# Appeal Getting Started Guide
+
+## Introduction
+
+Appeal is a powerful framework designed to simplify the development of modular and extensible applications. It allows you to create and manage modules and plugins effortlessly, enabling you to build scalable and maintainable software.
+
+## Modules and Plugins
+Modules are like pure virtual classes and plugins are like an instantiation for that class.
+For example the Graphics Modual has a set of functions and an interpreter. For graphics you could 
+use an SDL plugin, openGL plugin, DirectX plugin, or Vulcan plugin. The name of each Module is also
+the namespace for that Module. So once loaded you can call Graphics::Update(); to update all the graphics and you don't have to be conserned with which plugin is being used. A Module also extends the Appeal language by adding each of it's functions to the reserved word list. To use a Module function in an Appeal script simply type the Module name, the function name, and then the function arguments. 
+
+Example:
+    Audio Load_Song Song.mp3
+    Audio Play_Song
+    Done
+
+Blank lines are ignored. Spaces are used to seperate data. Quotation marks are optional with string
+data, unless it contains a space. 
+
+
+## Getting Started
+Module header files should be in /Source/Modules
+
+In main.cpp 
+    #include "Appeal.h"
+    //include header files for each Module
+    #include "Modules/Audio.h"
+    #include "Modules/Graphics.h"
+    
+
+    int main()
+    {
+        Appeal App;
+        // Load each Module and set it's interpreter
+        App.Add_Module("Audio", Audio::Interpreter);
+        App.Add_Module("Graphics", Graphics::Interpreter);
+
+        //Call the Init function for each Module to Initilize it with a plugin.
+
+Module functions including Init can be called directly using the Module name
+as a namespace, or you can call them in an Appeal script. I suggest making an 
+Appeal script called Config.Appeal for Initilizing the modules, so that you can change
+plugins without the need to recompile your app.
+NOTICE: For the plugin argument DO NOT include the file Extention the library assigns a .dll
+or a .so depending on your os, so that you can use the same name across platforms
+        
+example using CPP:
+        //Module_Name::Init("Plugin_Name");
+        Audio::Init("SDL3_Audio");
+
+example using Appeal:
+    //Module_Name Init Plugin_Name
+    Audio Init SDL3_Audio
+
+## How Appeal scripting works
+To run a script:
+    App.Load_Script("Script_Name");
+
+Appeal has 4 built in reserved words, but is expandable by adding Modules. The 4 reserved words are //, Print, Load, and Done. 
+
+// is used for remarks
+
+Print displays text in the terminal. 
+    Print "Text to Print"
+
+Load allows you to stop executing the current script and run a different script. 
+    Load "Path and File Name"
+
+Done just stops the current script. 
+    Done
+
+## Creating a new Module
+Module names should start with a Capital letter for each word 
+in their name and use _ between words, if it is more than one word long, but single words are preferable.
+
+In the folder ./Source/Modules there is a file template called
+"New.h". Make a copy in the same folder and rename it to the name
+of your Module. Open the file and edit it as nessecary following the directions in the comments.
+
+Create a test plugin for your new module:
+This test plugin will be used to test your Module and then once you know your new Module is working correctly, you can use the test plugin as a template for making new plugins for this new Module.
+
+In ./Source/Plugin_Source create a new folder with the name of your Module. Create a folder within that folder and name it "Test_" + the name of the Module. Copy the contents of ./Source/Plugin_Source/Test_Plugin to this folder. Rename the copy of Test_Plugin.cpp to "Test_" + the name of the Module + ".cpp". Copy this name open the Makefile. Edit the Module name on line 4 to match the name of the new Module and edit Lib_Name to match your .cpp file name. 
+Open your .cpp file and add an empty function for each function in your Module. Add the keywords extern "c" before each of your functions. In the function definitions just add a cout line that prints the name of the function. That way you can make sure that the Module is able to call each function. Also this is a safeguard so that every function in the Module is defined. If you forget one it can cause a segfault when you load your moduel. That done you can build the plugin with make, add the new Module to your main.cpp and test it out.
+
+

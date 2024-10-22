@@ -1,0 +1,32 @@
+# Compiler
+CC := g++
+
+# Compiler flags
+CFLAGS := -Wall -Wextra -std=c++11
+
+# Libraries
+LIBS := -lSDL2 -lSDL2_mixer
+
+# Source files
+SRCS := $(wildcard *.cpp)
+
+# Object files
+OBJS := $(SRCS:.cpp=.o)
+
+# Executable name
+TARGET := sdl2_audio
+
+# Default target
+all: $(TARGET)
+
+# Compile source files
+%.o: %.cpp
+	$(CC) $(CFLAGS) -c $< -o $@
+
+# Link object files
+$(TARGET): $(OBJS)
+	$(CC) $(CFLAGS) $^ -o $@ $(LIBS)
+
+# Clean build artifacts
+clean:
+	rm -f $(OBJS) $(TARGET)

@@ -1,0 +1,9 @@
+Print "Running Play.Appeal"
+
+Graphics Load_Image Splash_Screen Splash_Screen.jpg
+Audio Play
+Graphics Paste_Image Splash_Screen 100 100
+Audio Next
+Audio Back
+Print "Done"
+Done

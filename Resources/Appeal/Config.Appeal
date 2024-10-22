@@ -1,0 +1,9 @@
+Print "Running Config"
+
+Audio Init Test_Audio
+Graphics Init Test_Graphics
+Net_Client Init SDL_Net_Client
+
+Print "Config Complete"
+Done
+Load "../Resources/Config/Modules/Play.Appeal"
