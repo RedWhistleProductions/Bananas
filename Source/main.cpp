@@ -1,6 +1,5 @@
 #include "Appeal.h"
 
-
 #include "Modules/Audio.h"
 #include "Modules/Graphics.h"
 #include "Modules/Net_Client.h"
@@ -14,8 +13,9 @@
 int main(int argc, char* argv[])
 {
     Appeal App;
-    App.Add_Module("Audio", Audio::Interpreter);
-    App.Add_Module("Graphics", Graphics::Interpreter);
+    //App.Add_Module("Audio", Audio::Interpreter);
+    //App.Add_Module("Graphics", Graphics::Interpreter);
+    
     App.Add_Module("Net_Client", Net_Client::Interpreter);
    
     //Config calls init for each module and sets the plugin file for each module
@@ -23,8 +23,10 @@ int main(int argc, char* argv[])
     App.Data_Manager.Add_Source("Config", &Config);    
     
     App.Run();
-    Net_Client::Send("Net_Client Send Test");
-    std::cout << Net_Client::Receive() << std::endl;
+    
+    std::string Message = Net_Client::Receive();
+    std::cout << Message << std::endl;
+    
     
     return 0;
 }

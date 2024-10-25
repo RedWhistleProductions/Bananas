@@ -1,9 +1,16 @@
 Print "Running Config"
 
-Audio Init Test_Audio
-Graphics Init Test_Graphics
+//Audio Init Test_Audio
+//Graphics Init Test_Graphics
 Net_Client Init SDL_Net_Client
 
 Print "Config Complete"
+Print "Connecting to Server"
+
+Net_Client Connect "127.0.0.1" 5000
+Net_Client Send "Appeal Test"
+Net_Client Run "Test"
+
+
 Done
 Load "../Resources/Config/Modules/Play.Appeal"

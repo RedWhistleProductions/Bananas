@@ -15,6 +15,9 @@ namespace Net_Client
     
     //Run an Appeal Script over the network
     bool(*Run)(std::string File_Name);
+
+    //Download a file from the server
+    bool(*Download)(std::string File_Name);
     
     void Init(std::string Name)
     {

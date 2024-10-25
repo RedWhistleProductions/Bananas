@@ -17,7 +17,7 @@ RELEASE_OBJS := $(patsubst $(SRC_DIR)/%.cpp,$(RELEASE_DIR)/obj/%.o,$(SRCS))
 CFLAGS := -g 
 
 # Linker flags
-LDFLAGS := -lSDL2 -lSDL2_net
+LDFLAGS := 
 
 # Targets
 .PHONY: all debug release clean

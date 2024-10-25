@@ -16,15 +16,6 @@ extern "C" void Constructor(const char* name)
     }
 }
 
-extern "C" void Destructor()
-{
-    std::cout << "Net Client Module Destructor" << '\n';
-
-    SDLNet_TCP_Close(client);
-    SDLNet_Quit();
-    SDL_Quit();
-}
-
 extern "C" int Connect(std::string IP, int Port)
 {
     std::cout << "Connect: " << IP << " " << Port << std::endl;
@@ -42,12 +33,6 @@ extern "C" int Connect(std::string IP, int Port)
         return -1;
     }
     return 0;
-}
-
-extern "C" void Disconnect()
-{
-    SDLNet_TCP_Close(client);
-    std::cout << "Disconnect" << std::endl;
 }
 
 extern "C" void Send(std::string Data)
@@ -74,10 +59,37 @@ extern "C" std::string Receive()
     return "";
 }
     
-    //Run an Appeal Script over the network
+//Run an Appeal Script over the network
 extern "C" bool Run(std::string File_Name)
 {
-    std::cout << "Run: " << File_Name << std::endl;
+    std::string Command = "Run " + File_Name;
+    Send(Command);
     return true;
 }
-    
+
+//Download a file from the server
+extern "C" bool Download(std::string File_Name)
+{
+    std::string Command = "Download " + File_Name;
+    Send(Command);
+    return true;
+}
+
+extern "C" void Disconnect()
+{
+    if((client != NULL))
+    {
+        Send("Done");
+        SDLNet_TCP_Close(client);
+        client = nullptr;
+        std::cout << "Disconnect" << std::endl;
+    }
+}
+
+extern "C" void Destructor()
+{
+    std::cout << "Net Client Module Destructor" << '\n';
+    Disconnect();
+    SDLNet_Quit();
+    SDL_Quit();
+}   

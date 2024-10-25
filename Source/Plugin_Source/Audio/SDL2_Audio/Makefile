@@ -1,16 +1,16 @@
 # Library makefile
 
 # Module Name
-Module_Name := Net_Client
+Module_Name := Audio
 
 # Lib Name
-Lib_Name := SDL_Net_Client
+Lib_Name := SDL3_Audio
 
 # Compiler
 CC := g++
 
 # Compiler flags
-CFLAGS := -fPIC -Wall -Wextra -pedantic -std=c++17 
+CFLAGS := -fPIC -Wall -Wextra -pedantic -std=c++17 -I/usr/local/include
 
 # Source files
 Src_Files := $(wildcard *.cpp)
@@ -41,7 +41,8 @@ else
 	Lib_File := $(Output_Dir)$(Lib_Name).so
 	# Library flags
 	
-	LFLAGS := -shared -lSDL2 -lSDL2_net
+	LFLAGS := -shared -L/usr/local/lib -lSDL3 -lSDL3_mixer -Wl,-Bstatic -Wl,-Bdynamic
+
 endif
 
 # Makefile targets
@@ -56,6 +57,8 @@ $(Lib_File): $(Obj_Files)
 $(Obj_Files): $(Src_Files)
 	mkdir -p $(Obj_Dir)
 	$(CC) $(CFLAGS) -c $< -o $@
+
+
 
 # Clean
 clean:
