@@ -33,7 +33,7 @@ namespace Net_Client
         Module.Assign("Run", Run);
     }
 
-    void Interpreter(Data_Source *Data)
+    std::string Interpreter(Data_Source *Data)
     {
         std::string Command;
         *Data >> Command;
@@ -43,6 +43,7 @@ namespace Net_Client
             std::string Name;
             *Data >> Name;
             Init(Name);
+            return "";
         }
         // Add an else if statement for each function in the module
         else if(Command == "Connect")
@@ -59,21 +60,26 @@ namespace Net_Client
             {
                 std::cout << "Failed to connect to " << IP << " on port " << Port << std::endl;
             }
+            return "";
         }
         else if(Command == "Disconnect")
         {
             Disconnect();
+            return "";
         }
         else if(Command == "Send")
         {
             std::string Message;
             *Data >> Message;
             Send(Message);
+            return "";
         }
         else if(Command == "Receive")
         {
             std::string Message = Receive();
             std::cout << Message << std::endl;
+            return "";
         }
+        return "Error: "  + Command + " not found in Net_Client Dictionary";
     } 
 }

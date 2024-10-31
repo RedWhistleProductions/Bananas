@@ -12,7 +12,7 @@
 #ifdef __linux__
     /// linux
 	#include <SDL2/SDL.h>
-	#include <SDL2_mixer/SDL_mixer.h>
+	#include <SDL2/SDL_mixer.h>
 #endif
 
 #ifdef __APPLE__
@@ -45,6 +45,7 @@ extern "C" void Set_Paths(std::string Path_of_Resources)
 
 extern "C" void Constructor()
 {
+	Set_Paths("../Resources");
 	Frequency = 22050;
     Chanels = 2;
     Chunksize = 4096;   
@@ -59,7 +60,7 @@ extern "C" void Constructor()
 	else
 	{
 		//Mix_OpenAudio( Frequency, MIX_DEFAULT_FORMAT, Chanels, Chunksize );
-		Mix_OpenAudio(0,0);	
+		Mix_OpenAudio( 44100, MIX_DEFAULT_FORMAT, 2, 2048 );	
 	}
 }
 

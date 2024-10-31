@@ -29,7 +29,7 @@ namespace Graphics
         Module.Assign("Render", Render);
     }
 
-    void Interpreter(Data_Source *Data)
+    std::string Interpreter(Data_Source *Data)
     {
         std::string Command;
         *Data >> Command;
@@ -39,6 +39,7 @@ namespace Graphics
             std::string Name;
             *Data >> Name;
             Init(Name);
+            return "";
         }
         else if(Command == "Load_Image")
         {
@@ -47,6 +48,7 @@ namespace Graphics
             *Data >> Name;
             *Data >> Image_File;
             Load_Image(Name, Image_File);
+            return "";
         }
         else if(Command == "Paste_Image")
         {
@@ -56,6 +58,7 @@ namespace Graphics
             *Data >> x;
             *Data >> y;
             Paste_Image(Name, x, y);
+            return "";
         }
         else if(Command == "Load_Model")
         {
@@ -64,6 +67,7 @@ namespace Graphics
             *Data >> Name;
             *Data >> Model_File;
             Load_Model(Name, Model_File);
+            return "";
         }
         else if(Command == "Paste_Model")
         {
@@ -74,6 +78,7 @@ namespace Graphics
             *Data >> y;
             *Data >> z;
             Paste_Model(Name, x, y, z);
+            return "";
         }
         else if(Command == "Load_Scene")
         {
@@ -82,16 +87,21 @@ namespace Graphics
             *Data >> Name;
             *Data >> Scene_File;
             Load_Scene(Name, Scene_File);
+            return "";
         }
         else if(Command == "Paste_Scene")
         {
             std::string Name;
             *Data >> Name;
             Paste_Scene(Name);
+            return "";
         }
         else if(Command == "Render")
         {
             Render();
+            return "";
         }
+
+        return "Error: " + Command + " is not found in the Graphics Dictionary";
     }
 }

@@ -8,14 +8,26 @@ class File_Data_Source: public Data_Source
         bool Valid;
     public:
         FileIO File;
+        File_Data_Source();
         File_Data_Source(std::string File_Name);
+        void Load(std::string File_Name);
         std::string Get_Data() override;
         ~File_Data_Source();
 };
 
+File_Data_Source::File_Data_Source()
+{
+    Valid = false;
+}
+
 File_Data_Source::File_Data_Source(std::string File_Name)
 {
     //File.DEBUG = true;
+    Valid = File.Open(File_Name);
+}
+
+void File_Data_Source::Load(std::string File_Name)
+{
     Valid = File.Open(File_Name);
 }
 

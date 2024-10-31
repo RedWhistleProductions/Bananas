@@ -19,7 +19,7 @@ namespace Network
         
     }
 
-    void Interpreter(FileIO *Script)
+    std::string Interpreter(FileIO *Script)
     {
         std::string Command;
         *Script >> Command;
@@ -29,8 +29,11 @@ namespace Network
             std::string Name;
             *Script >> Name;
             Init(Name);
+            return "";
         }
         // Add an else if statement for each function in the module
+
+        return "Error: " + Command + " not found in Net_Server Dictionary";
     }
     
 }

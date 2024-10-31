@@ -1,5 +1,6 @@
 #pragma once
 #include "Plugin.h"
+#include "../Data_Source.h"
 
 //This is a template for creating a new module
 
@@ -22,18 +23,21 @@ namespace New
         
     }
 
-    void Interpreter(FileIO *Script)
+    std::string Interpreter(Data_Source *Data)
     {
         std::string Command;
-        *Script >> Command;
+        *Data >> Command;
 
         if(Command == "Init")
         {
             std::string Name;
-            *Script >> Name;
+            *Data >> Name;
             Init(Name);
+            return "";
         }
         // Add an else if statement for each function in the module
+
+        return "Error: " + Command + " not found in New Dictionary";
     }
     
 }

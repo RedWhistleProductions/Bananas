@@ -50,16 +50,12 @@ namespace Controller
     void (*Set_Right_Joy_Down)(Analog_Function Function);
 
 
-
-    
-
     void Init(std::string Name)
     {
         Module.Load("Controller", Name);
-
     }
 
-    void Interpreter(FileIO *Script)
+    std::string Interpreter(FileIO *Script)
     {
         std::string Command;
         *Script >> Command;
@@ -69,7 +65,9 @@ namespace Controller
             std::string Name;
             *Script >> Name;
             Init(Name);
+            return "";
         }
-
         
+        return "Error : " + Command + " not found in Controller Dictionary";
+    }   
 }

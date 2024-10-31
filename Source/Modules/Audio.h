@@ -41,7 +41,7 @@ namespace Audio
         Module.Assign("UnMute", UnMute);
     }
 
-    void Interpreter(Data_Source *Data)
+    std::string Interpreter(Data_Source *Data)
     {
         std::string Command;
         *Data >> Command;
@@ -51,17 +51,20 @@ namespace Audio
             std::string Name;
             *Data >> Name;
             Init(Name);
+            return "";
         }
 
         else if(Command == "Back")
         {
             Back();
+            return "";
         }
 
         else if(Command == "Load_Play_List")
         {
             *Data >> Command;
             Load_Play_List(Command);
+            return "";
         }
 
         else if(Command == "Load_SFX")
@@ -71,6 +74,7 @@ namespace Audio
             *Data >> Name;
             *Data >> SFX_File;
             Load_SFX(Name, SFX_File);
+            return "";
         }
 
         else if(Command == "Load_Song")
@@ -80,26 +84,31 @@ namespace Audio
             *Data >> Name;
             *Data >> Music_File;
             Load_Song(Name, Music_File);
+            return "";
         }
 
         else if(Command == "Mute")
         {
             Mute();
+            return "";
         }
 
         else if(Command == "Next")
         {
             Next();
+            return "";
         }
 
         else if(Command == "Play")
         {
             Play();
+            return "";
         }
 
         else if(Command == "Play_SFX")
         {
             Play_SFX();
+            return "";
         }
 
         else if(Command == "Play_SFX_Name")
@@ -107,6 +116,7 @@ namespace Audio
             std::string Name;
             *Data >> Name;
             Play_SFX_Name(Name);
+            return "";
         }
 
         else if(Command == "Play_Song")
@@ -114,6 +124,7 @@ namespace Audio
             std::string Name;
             *Data >> Name;
             Play_Song(Name);
+            return "";
         }
 
         else if(Command == "Play_Track")
@@ -121,6 +132,7 @@ namespace Audio
             int Track;
             *Data >> Track;
             Play_Track(Track);
+            return "";
         }
 
         else if(Command == "Set_Paths")
@@ -128,16 +140,21 @@ namespace Audio
             std::string Resources;
             *Data >> Resources;
             Set_Paths(Resources);
+            return "";
         }
 
         else if(Command == "Stop")
         {
             Stop();
+            return "";
         }
 
         else if(Command == "UnMute")
         {
             UnMute();
+            return "";
         }
-    }
+
+        return "Error: "  + Command + " not found in Audio Dictionary";
+    }   
 }

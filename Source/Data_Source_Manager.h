@@ -5,7 +5,6 @@
 
 #include "Data_Source.h"
 
-
 class Data_Source_Manager
 {
     public:
