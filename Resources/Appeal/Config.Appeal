@@ -1,21 +1,13 @@
 Print "Running Config"
 Audio Init SDL2_Audio
-Graphics Init Test_Graphics
-Net_Client Init SDL_Net_Client
+//Net_Client Init SDL_Net_Client
+Input Init SDL2_Input
 
+Renderer Init SDL2_Renderer
 Print "Config Complete"
 
-Audio Load_Play_List PlayAll.txt
-Audio Play_Song "Folk Song"
-
-Print "Connecting to Server"
-
-Net_Client Connect "127.0.0.1" 5000
-Net_Client Send "Appeal Test"
-//Net_Client Run "Test"
-
-Audio Next
-
-//Load "../Resources/Appeal/Play.Appeal"
+//Load Test_Audio
+Load Test_Renderer
+Load Test_Audio
 
 Done

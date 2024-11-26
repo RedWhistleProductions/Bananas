@@ -1,0 +1,5 @@
+Print "Connecting to Server"
+
+Net_Client Connect "127.0.0.1" 5000
+Net_Client Send "Appeal Test"
+Net_Client Run "Test"

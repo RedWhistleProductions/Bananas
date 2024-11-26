@@ -65,7 +65,6 @@ int Music::Load(std::string Music_File)
     if(DEBUG) std::cout << "Loading: " << Music_File << std::endl;
 
     if(Song != NULL)Mix_FreeMusic( Song );
-    else if(DEBUG) std::cout << "Error Loading:" << Music_File << std::endl;
 
     Song = Mix_LoadMUS( Music_File.c_str());
     MUSIC_ON = true;

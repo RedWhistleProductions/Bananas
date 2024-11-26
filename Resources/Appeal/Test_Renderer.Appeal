@@ -1,0 +1,29 @@
+Print "Testing Window Manager"
+
+// Load Shaders
+Renderer Load_Shader Shade Default.Config
+
+// Load Textures
+Renderer Load_Texture Pic 461223177.jpg
+Renderer Load_Texture Pic_2 461223169.jpg
+Renderer Load_Texture Link Link.png
+Renderer Load_Texture Brick Red_Brick.bmp
+Renderer Load_Texture Test Test.bmp
+Renderer Load_Texture Plant Plant.png
+
+// Load Assets
+Renderer Load_Asset Cube "../Resources/Assets/cube.dat"
+Renderer Set_Texture Cube Link
+Renderer Set_Shader Cube Shade
+Renderer Set_Location Cube 0.0 0.0 -15.0
+Renderer Set_Orientation Cube 0.0 0.0 0.0
+Renderer Set_Scale Cube 1.0 1.0 1.0
+
+Renderer Load_Asset Plant "../Resources/Assets/cube.dat"
+Renderer Set_Texture Plant Plant
+Renderer Set_Shader Plant Shade
+Renderer Set_Location Plant -1.0 0.0 -10.0
+Renderer Set_Orientation Plant 0.0 0.0 0.0
+Renderer Set_Scale Plant 5.0, 1.0, 1.0
+
+Done
