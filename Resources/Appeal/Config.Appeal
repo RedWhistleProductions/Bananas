@@ -1,13 +1,5 @@
-Print "Running Config"
-Audio Init SDL2_Audio
 //Net_Client Init SDL_Net_Client
+Audio Init SDL2_Audio
 Input Init SDL2_Input
-
 Renderer Init SDL2_Renderer
-Print "Config Complete"
-
-//Load Test_Audio
-Load Test_Renderer
-Load Test_Audio
-
 Done

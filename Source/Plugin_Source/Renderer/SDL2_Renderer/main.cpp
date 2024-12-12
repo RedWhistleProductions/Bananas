@@ -99,6 +99,18 @@ extern "C" void Set_Location(std::string Name, float X, float Y, float Z)
 	Assets.Current->Value.Set_Location(X, Y, Z);
 }
 
+extern "C" void Move_Asset(std::string Name, float X, float Y, float Z)
+{
+	Assets.Find(Name);
+	Assets.Current->Value.Move(X, Y, Z);
+}
+
+extern "C" void Rotate_Asset(std::string Name, float Yaw, float Pitch, float Roll)
+{
+	Assets.Find(Name);
+	Assets.Current->Value.Rotate(Yaw, Pitch, Roll);
+}
+
 extern "C" void Set_Orientation(std::string Name, float Yaw, float Pitch, float Roll)
 {
 	Assets.Find(Name);
@@ -138,26 +150,7 @@ extern "C" void Render()
 	Frame_Rate.Delay();
 }
 
-extern "C" void Constructor()
-{
-	std::cout << "SDL2_Window_Manager" << std::endl;
 
-	WM.Add_Window("Main", "Bananas", 1);
-	WM.Main_Win->Full_Screen();
-	
-	WM.Main_Win->View.Set_Perspective(45.0f, 0.1f, 100.0f);
-	WM.Main_Win->View.Cam.Set_Location(0.0f, 0.0f, -5.0f);
-	WM.Main_Win->View.Cam.Set_Orientation(0.0f, 0.0f, 0.0f);
-	WM.Main_Win->View.Cam.Update();
-
-	glEnable(GL_DEPTH_TEST);
-	glDepthFunc(GL_LESS);
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	 
-	Speed = 0.1;
-	Rotation = 1.0;
-}
 
 extern "C" std::string Update()
 {	
@@ -184,15 +177,14 @@ extern "C" std::string Update()
 			break;
 
 			case SDL_QUIT:
-				return "0";
+				return "Quit";
 			break;
 
 			case SDL_KEYDOWN:
 				switch(sdl_event.key.keysym.sym)
 				{
 					case SDLK_ESCAPE:
-					case SDLK_KP_0:
-						return "0";
+						return "Quit";
 					break;
 
 					case SDLK_KP_1:
@@ -235,7 +227,7 @@ extern "C" std::string Update()
 					case SDLK_f:
 						Assets.Find("Cube");
 						Assets.Current->Value.Move(0, -Speed, 0);
-					break;
+			void Backward();		break;
 
 					case SDLK_t:
 						Assets.Find("Cube");
@@ -262,10 +254,12 @@ extern "C" std::string Update()
 			case SDL_WINDOWEVENT:
 				if(sdl_event.window.windowID == WM.Main_Win->Id and sdl_event.window.event == SDL_WINDOWEVENT_CLOSE)
 				{
-					return "0";
+					WM.Event(sdl_event.window.windowID, sdl_event);
+					return "Quit";
 				}
-
-				WM.Event(sdl_event.window.windowID, sdl_event);
+				else
+				{WM.Event(sdl_event.window.windowID, sdl_event);}
+				
 			break;
 		}
 		
@@ -301,6 +295,11 @@ extern "C" void Hide(std::string Name)
 	WM.Hide(Name);
 }
 
+extern "C" void Set_Full_Screen(std::string Name)
+{
+	WM.Set_Full_Screen(Name);
+}
+
 extern "C" void Set_Focus(std::string Name)
 {
 	WM.Set_Focus(Name);
@@ -321,3 +320,23 @@ extern "C" void Set_FPS(int Frames)
 	Frame_Rate.Set_FPS(Frames);
 }
 
+extern "C" void Constructor()
+{
+	std::cout << "Loading: SDL2_Renderer" << std::endl;
+	//Add_Window("Main", "Bananas", 1);
+	//WM.Add_Window("Main", "Bananas", 1);
+	//WM.Main_Win->Full_Screen();
+	/*
+	WM.Main_Win->View.Set_Perspective(45.0f, 0.1f, 100.0f);
+	WM.Main_Win->View.Cam.Set_Location(0.0f, 0.0f, -5.0f);
+	WM.Main_Win->View.Cam.Set_Orientation(0.0f, 0.0f, 0.0f);
+	WM.Main_Win->View.Cam.Update();
+*/
+	glEnable(GL_DEPTH_TEST);
+	glDepthFunc(GL_LESS);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	 
+	Speed = 0.1;
+	Rotation = 1.0;
+}

@@ -35,6 +35,8 @@ namespace Renderer
 
     //Asset Functions
     void (*Load_Asset)(std::string Name, std::string Full_Path);
+    void (*Move_Asset)(std::string Name, float X, float Y, float Z);
+    void (*Rotate_Asset)(std::string Name, float Yaw, float Pitch, float Roll);
     void (*Set_Texture)(std::string Name, std::string Texture_Name);
     void (*Set_Shader)(std::string Name, std::string Shader_Name);
     void (*Set_Location)(std::string Name, float X, float Y, float Z);
@@ -80,6 +82,8 @@ namespace Renderer
 
         //Asset Functions
         Module.Assign("Load_Asset", Load_Asset);
+        Module.Assign("Move_Asset", Move_Asset);
+        Module.Assign("Rotate_Asset", Rotate_Asset);
         Module.Assign("Set_Texture", Set_Texture);
         Module.Assign("Set_Shader", Set_Shader);
         Module.Assign("Set_Location", Set_Location);
@@ -252,6 +256,13 @@ namespace Renderer
             Move_Camera(Window_Name, X, Y, Z);
             return "";
         }
+        else if(Command == "Update_Camera")
+        {
+            std::string Window_Name;
+            *Data >> Window_Name;
+            Update_Camera(Window_Name);
+            return "";
+        }
 // Renderer Functions
         else if(Command == "Set_FPS")
         {
@@ -340,6 +351,45 @@ namespace Renderer
             *Data >> Y;
             *Data >> Z;
             Set_Scale(Name, X, Y, Z);
+            return "";
+        }
+        else if(Command == "Move_Asset")
+        {
+            std::string Name;
+            float X;
+            float Y;
+            float Z;
+            *Data >> Name;
+            *Data >> X;
+            *Data >> Y;
+            *Data >> Z;
+            Move_Asset(Name, X, Y, Z);
+            return "";
+        }
+        else if(Command == "Rotate_Asset")
+        {
+            std::string Name;
+            float Yaw;
+            float Pitch;
+            float Roll;
+            *Data >> Name;
+            *Data >> Yaw;
+            *Data >> Pitch;
+            *Data >> Roll;
+            Rotate_Asset(Name, Yaw, Pitch, Roll);
+            return "";
+        }
+        else if(Command == "Rotate_Asset")
+        {
+            std::string Name;
+            float Yaw;
+            float Pitch;
+            float Roll;
+            *Data >> Name;
+            *Data >> Yaw;
+            *Data >> Pitch;
+            *Data >> Roll;
+            Rotate_Asset(Name, Yaw, Pitch, Roll);
             return "";
         }
 // Texture Functions

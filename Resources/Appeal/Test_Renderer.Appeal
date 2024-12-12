@@ -1,4 +1,16 @@
-Print "Testing Window Manager"
+//Renderer Add_Window Main "Bananas" 1
+Renderer Add_Full_Screen_Window Main 1
+Renderer Set_Perspective Main 45.0 0.1 100.0
+Renderer Set_Camera_Location Main 0.0 0.0 -5.0
+Renderer Set_Camera_Orientation Main 0.0 0.0 0.0
+Renderer Update_Camera Main
+
+//Renderer Add_Full_Screen_Window Win_2 2
+//Renderer Set_Perspective Win_2, 45.0, 0.1, 100.0
+//Renderer Set_Ortho Win_2 -1.0 1.0 -1.0 1.0 .0 -100.0
+//Renderer Set_Camera_Location Win_2 0.0 1.0 -5.0
+//Renderer Set_Camera_Orientation Win_2 1.0 0.0 0.0
+//Renderer Update_Camera Win_2
 
 // Load Shaders
 Renderer Load_Shader Shade Default.Config
@@ -13,17 +25,23 @@ Renderer Load_Texture Plant Plant.png
 
 // Load Assets
 Renderer Load_Asset Cube "../Resources/Assets/cube.dat"
-Renderer Set_Texture Cube Link
+Renderer Set_Texture Cube Pic
 Renderer Set_Shader Cube Shade
-Renderer Set_Location Cube 0.0 0.0 -15.0
+Renderer Set_Location Cube 0.0 2.0 -15.0
 Renderer Set_Orientation Cube 0.0 0.0 0.0
 Renderer Set_Scale Cube 1.0 1.0 1.0
 
 Renderer Load_Asset Plant "../Resources/Assets/cube.dat"
-Renderer Set_Texture Plant Plant
+Renderer Set_Texture Plant Brick
 Renderer Set_Shader Plant Shade
 Renderer Set_Location Plant -1.0 0.0 -10.0
 Renderer Set_Orientation Plant 0.0 0.0 0.0
 Renderer Set_Scale Plant 5.0, 1.0, 1.0
 
+//Renderer Load_Asset Plant_2 "../Resources/Assets/cube.dat"
+//Renderer Set_Texture Plant_2 Plant
+//Renderer Set_Shader Plant_2 Shade
+//Renderer Set_Location Plant_2 -1.0 0.0 -10.0
+//Renderer Set_Orientation Plant_2 0.0 0.0 0.0
+//Renderer Set_Scale Plant_2 2.5, 0.5, 0.5
 Done

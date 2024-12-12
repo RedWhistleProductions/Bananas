@@ -39,10 +39,15 @@ extern "C" void Set_Controll_Set(std::string Name)
 
 extern "C" void Update(std::string Controll_Set)
 {
-    std::cout << "Update" << std::endl;
-    Control_Set_List.Find(Controll_Set);
-    
-    Control_Set_List.Current->Value.Update(&e);
+    if(Control_Set_List.Find(Controll_Set))
+    {
+        Control_Set_List.Current->Value.Update(&e);
+    }
+    else
+    {
+        std::cout << "Error: " << Controll_Set <<
+         " Controll Set not found" << std::endl;
+    }
 }
 
 // Mouse Functions
@@ -97,13 +102,11 @@ extern "C" void Set_Mouse_Y(Analog_Function Foo)
 // Keyboard Functions
 extern "C" void Set_Key_Down(Key_Code Key, Digital_Function Foo)
 {
-    std::cout << "Set_Key_Down" << std::endl;
     Control_Set_List.Current->Value.KB.Set_Key_Down(Key, Foo);
 }
 
 extern "C" void Set_Key_Up(Key_Code Key, Digital_Function Foo)
 {
-    std::cout << "Set_Key_Up" << std::endl;
     Control_Set_List.Current->Value.KB.Set_Key_Up(Key, Foo);
 }
 

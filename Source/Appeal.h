@@ -53,19 +53,21 @@ void Appeal::Run(std::string Script)
     }
     else
     {
-        std::cout << "Error: " << Script << std::endl;
-        return;
+        //std::cout << "Error: " << Script << std::endl;
+        Add_Script(Script);
+        Run();
     }
 }
 
 void Appeal::Run()
 {
+    std::cout << "Running: " << Data_Manager.Data_Sources.Current->Name << std::endl;
+    
     Done = false;
     if(Data_Manager.Data_Sources.Nodes == 0)
     {
         std::cout << "Error: No Data Sources" << std::endl;
         Done = true;
-        return;
     }
     
     while(not Done)
@@ -111,4 +113,5 @@ void Appeal::Run()
             }
         }
     }
+    std::cout << "Done Running: " << Data_Manager.Data_Sources.Current->Name << std::endl;
 }

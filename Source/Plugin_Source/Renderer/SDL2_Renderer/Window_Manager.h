@@ -33,7 +33,7 @@ class Window_Manager
     void Init();
     
     int Open_Windows();
-
+	void Set_Full_Screen(std::string Name);
     void Set_Focus(Window * Win);
 	void Set_Focus(std::string Name);
     void Set_Monitor(int N);
@@ -173,6 +173,11 @@ void Window_Manager::Set_Focus(Window * Win)
 {
     Selected = Win;
     Win->Set_Focus();
+}
+
+void Window_Manager::Set_Full_Screen(std::string Name)
+{
+	if(Find(Name)){Selected->Full_Screen();}
 }
 
 void Window_Manager::Set_Monitor(int N)

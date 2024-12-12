@@ -1,3 +1,6 @@
 Print "Creating Default Controll Set"
-Input Add_Controll_Set "Default"
+// Default control Set is created by the init function
+
+Done
+
 

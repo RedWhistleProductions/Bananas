@@ -7,9 +7,21 @@
 #include "Modules/Input.h"
 #include "Modules/Renderer.h"
 
-//include "Modules/Net_Server.h"
+#include "Actor.h"
 
-#include "File_Data_Source.h"
+//include "Modules/Net_Server.h"
+bool Quit = false;
+
+void Quit_App()
+{
+    std::cout << "Quit" << std::endl;
+    Quit = true;
+}
+
+void Click()
+{
+    std::cout << "Click" << std::endl;
+}
 
 
 int main(int argc, char* argv[])
@@ -23,33 +35,30 @@ int main(int argc, char* argv[])
    
     
     //Config calls init for each module and sets the plugin file for each module
-    App.Add_Script("Config");
     App.Run("Config");
-    //App.Add_Script("Test_Audio");
-    //App.Run("Test_Audio");
-    App.Add_Script("Test_Inuput");
-    App.Run("Test_Input");
     
+    App.Run("Test_Audio");
+    App.Run("Test_Renderer");
+
+    App.Run("Test_Input");
+    Input::Set_Mouse_Left_Down(Click);
+    Input::Set_Key_Down(Input::Key_Escape, Quit_App);
+    Input::Set_Key_Down(Input::Key_Num_0, Audio::Stop);
+    Input::Set_Key_Down(Input::Key_Num_1, Audio::Play);
+    Input::Set_Key_Down(Input::Key_Num_2, Audio::Next);
+    Input::Set_Key_Down(Input::Key_Num_3, Audio::Back);
+    Input::Set_Key_Down(Input::Key_Num_4, Audio::Mute);
+    Input::Set_Key_Down(Input::Key_Num_5, Audio::UnMute);
+    
+    Actor::Init();
+
     std::string Menu;
-    bool Quit = false;
+    
     while (Quit == false)
     {
+        Input::Update("Default");
         Renderer::Render();
-        Menu = Renderer::Update();
-        if(Menu == "Quit")
-        {
-            Quit = true;
-        }
-        else if (Menu == "1")
-        {
-            Audio::Next();
-        }
-        else if(Menu == "2")
-        {
-            Audio::Back();
-        }
-        
-    } 
-    
+    }
+
     return 0;
 }

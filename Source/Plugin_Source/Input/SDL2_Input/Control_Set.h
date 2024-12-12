@@ -16,29 +16,15 @@ public:
 
 void Control_Set::Update(SDL_Event *e)
 {   
-    bool Quit = false;
-    while(!Quit)
+    while(SDL_PollEvent(e) != 0)
     {
-        while(SDL_PollEvent(e) != 0)
+        if(e->type == SDL_KEYDOWN or e->type == SDL_KEYUP)
         {
-            if(e->type == SDL_QUIT)
-            {
-                Quit = true;
-            }
-            else if(e->type == SDL_KEYDOWN)
-            {
-                KB.Update(e);
-            }
-            else if(e->type == SDL_KEYUP)
-            {
-                KB.Update(e);
-            }
-            else if(e->type == SDL_MOUSEBUTTONDOWN or e->type == SDL_MOUSEBUTTONUP or e->type == SDL_MOUSEMOTION)
-            {
-                M.Update(e);
-            }
-            
+            KB.Update(e);
+        }
+        else if(e->type == SDL_MOUSEBUTTONDOWN or e->type == SDL_MOUSEBUTTONUP /*or e->type == SDL_MOUSEMOTION*/)
+        {
+            M.Update(e);
         }
     }
-   
 }
